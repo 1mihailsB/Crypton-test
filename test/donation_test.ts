@@ -12,15 +12,15 @@ describe("Donation", function () {
   const invalidTestValue = 0;
 
   const donateSevenTimes = async () => {
-    await contract.connect(owner).donate({value: correctTestValue});
-    await contract.connect(owner).donate({value: correctTestValue});
-    await contract.connect(owner).donate({value: correctTestValue});
-
-    await contract.connect(addr1).donate({value: correctTestValue});
-    await contract.connect(addr1).donate({value: correctTestValue});
-
-    await contract.connect(addr2).donate({value: correctTestValue});
-    await contract.connect(addr2).donate({value: correctTestValue});
+    await Promise.all([
+      contract.connect(owner).donate({value: correctTestValue}),
+      contract.connect(owner).donate({value: correctTestValue}),
+      contract.connect(owner).donate({value: correctTestValue}),
+      contract.connect(addr1).donate({value: correctTestValue}),
+      contract.connect(addr1).donate({value: correctTestValue}),
+      contract.connect(addr2).donate({value: correctTestValue}),
+      contract.connect(addr2).donate({value: correctTestValue})
+    ]);
   };
   
   beforeEach(async function () {
